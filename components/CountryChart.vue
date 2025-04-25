@@ -72,24 +72,25 @@ function renderChart() {
       legend: {
         position: 'bottom',
         labels: {
-          color: '#e5e7eb', // Gris clair pour le texte de la légende
+          color: '#e5e7eb',
         },
       },
       title: {
         display: true,
         text: 'Répartition des pays par continent',
-        color: '#e5e7eb', // Gris clair pour le texte du titre
+        color: '#e5e7eb',
+        font: { size: 18 },
       },
     },
     elements: {
       arc: {
-        borderWidth: 1, // Bordure fine pour les segments
-        borderColor: '#1f2937', // Gris très foncé (presque noir) pour les bordures
+        borderWidth: 1,
+        borderColor: '#1f2937',
       },
     },
     animations: {
       tension: {
-        duration: 1000, // Animation fluide pour l'affichage
+        duration: 1000,
         easing: 'easeOutBounce',
       },
     },

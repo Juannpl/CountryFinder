@@ -19,7 +19,6 @@ import type { ChartOptions } from 'chart.js'
 import { useCountryStore } from '@/stores/useCountryStore'
 import ExportButton from '@/components/ExportButton.vue'
 
-// 👇 Convertir les données chart.js en tableau exploitable
 const exportData = computed(() => {
   const entries = Object.entries(languageCounts.value)
     .sort((a, b) => b[1] - a[1])
@@ -92,6 +91,7 @@ const chartOptions: ChartOptions<'pie'> = {
       display: true,
       text: 'Langues les plus parlées (par nombre de pays)',
       color: '#e5e7eb',
+      font: { size: 18 },
     },
   },
   elements: {

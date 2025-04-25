@@ -1,6 +1,6 @@
 <template>
   <div class="p-6">
-    <h1 class="text-2xl mb-4">Liste des pays 🌎</h1>
+    <h1 class="text-2xl mb-4">Liste des pays</h1>
 
     <p v-if="store.isLoading">Chargement des pays...</p>
     <p v-if="store.error" class="text-red-500">{{ store.error }}</p>
