@@ -39,7 +39,7 @@ const populationChartRef = ref<HTMLCanvasElement | null>(null);
 const topPopulatedCountries = computed(() => {
   return store.countries
     .filter((c) => c.population && c.name?.common)
-    .sort((a, b) => b.population - a.population)
+    .sort((a, b) => (b.population ?? 0) - (a.population ?? 0))
     .slice(0, 10);
 });
 
@@ -58,7 +58,11 @@ onMounted(() => {
   }
 });
 
+let chart: Chart | undefined;
+onBeforeUnmount(() => chart?.destroy());
+
 function renderChart() {
+  chart?.destroy();
   const countries = topPopulatedCountries.value;
 
   const data = {
@@ -118,7 +122,7 @@ function renderChart() {
   };
 
   if (populationChartRef.value) {
-    new Chart(populationChartRef.value, {
+    chart = new Chart(populationChartRef.value, {
       type: "bar",
       data,
       options,

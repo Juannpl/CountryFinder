@@ -20,16 +20,17 @@ const props = defineProps<{
   
 const exportCSV = () => {
   const headers = Object.keys(props.data[0] || {})
-  const rows = props.data.map(obj => headers.map(header => obj[header]))
+  const rows = props.data.map(obj => headers.map(header => '"' + String(obj[header] ?? '').replace(/"/g, '""') + '"'))
   const csv = [headers.join(','), ...rows.map(row => row.join(','))].join('\n')
  
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const blob = new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8;' })
   const url = URL.createObjectURL(blob)
   
   const link = document.createElement('a')
   link.href = url
   link.setAttribute('download', `${props.filename}.csv`)
   link.click()
+  setTimeout(() => URL.revokeObjectURL(url), 1000)
 }
   
 const exportXLSX = () => {

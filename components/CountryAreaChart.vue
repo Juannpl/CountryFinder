@@ -39,7 +39,7 @@ const store = useCountryStore();
 const largestCountries = computed(() => {
   return [...store.countries]
     .filter((c) => typeof c.area === "number")
-    .sort((a, b) => b.area - a.area)
+    .sort((a, b) => (b.area ?? 0) - (a.area ?? 0))
     .slice(0, 10);
 });
 
@@ -58,13 +58,17 @@ onMounted(() => {
   }
 });
 
+let chart: Chart | undefined;
+onBeforeUnmount(() => chart?.destroy());
+
 function renderChart() {
+  chart?.destroy();
   if (!areaChartRef.value) return;
 
   const labels = largestCountries.value.map((c) => c.translations.fra.common);
   const areas = largestCountries.value.map((c) => c.area);
 
-  new Chart(areaChartRef.value, {
+  chart = new Chart(areaChartRef.value, {
     type: "bar",
     data: {
       labels,

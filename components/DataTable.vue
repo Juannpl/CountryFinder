@@ -2,31 +2,31 @@
   <table class="table-auto w-full mt-4">
     <thead>
       <tr>
-        <th 
-          @click="$emit('sort', 'name')" 
+        <th
+          @click="$emit('sort', 'name')"
           class="cursor-pointer border px-4 py-2 w-1/6"
         >
           Pays
           <span v-if="sortKey === 'name'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
         </th>
         <th class="border px-4 py-2 w-1/3 md:w-1/4 lg:w-1/5">Drapeau</th>
-        <th 
-          @click="$emit('sort', 'capital')" 
+        <th
+          @click="$emit('sort', 'capital')"
           class="cursor-pointer border px-4 py-2 w-1/6"
         >
           Capitale
           <span v-if="sortKey === 'capital'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
         </th>
         <th v-if="!continent" class="border px-4 py-2 w-1/6">Continent</th>
-        <th 
-          @click="$emit('sort', 'population')" 
+        <th
+          @click="$emit('sort', 'population')"
           class="cursor-pointer border px-4 py-2 w-1/6"
         >
           Population
           <span v-if="sortKey === 'population'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
         </th>
-        <th 
-          @click="$emit('sort', 'area')" 
+        <th
+          @click="$emit('sort', 'area')"
           class="cursor-pointer border px-4 py-2 w-1/6"
         >
           Superficie
@@ -35,23 +35,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr 
-        v-for="country in countries" 
-        :key="country.cca3" 
+      <tr
+        v-for="country in countries"
+        :key="country.id"
         class="border-b border-gray-700 hover:bg-gray-700"
       >
         <td class="border px-4 py-2 text-gray-300">{{ country.translations.fra.common }}</td>
         <td class="border px-4 py-2 text-gray-300">
-          <img 
-            :src="`https://flagsapi.com/${country.cca2}/shiny/64.png`" 
-            :alt="`Drapeau ${country.name.common}`" 
-            class="inline ml-2" 
+          <img v-if="country.flags.svg || country.flags.png"
+            :src="country.flags.svg || country.flags.png"
+            loading="lazy"
+            width="64"
+            :alt="`Drapeau ${country.name.common}`"
+            class="inline ml-2"
           />
         </td>
         <td class="border px-4 py-2 text-gray-300">{{ country.capital?.[0] ?? 'N/A' }}</td>
         <td v-if="!continent" class="border px-4 py-2 text-gray-300">{{ country.region }}</td>
-        <td class="border px-4 py-2 text-gray-300">{{ country.population.toLocaleString() }}</td>
-        <td class="border px-4 py-2 text-gray-300">{{ country.area.toLocaleString() }} km²</td>
+        <td class="border px-4 py-2 text-gray-300">{{ country.population?.toLocaleString('fr-FR') ?? 'N/A' }}</td>
+        <td class="border px-4 py-2 text-gray-300">{{ country.area?.toLocaleString('fr-FR') ?? 'N/A' }} km²</td>
       </tr>
     </tbody>
   </table>

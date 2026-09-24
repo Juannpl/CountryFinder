@@ -2,6 +2,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  runtimeConfig: { restCountriesApiKey: "" },
   app: {
     head: {
       title: 'Country Finder', // default fallback title

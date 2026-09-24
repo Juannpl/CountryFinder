@@ -45,7 +45,11 @@ onMounted(() => {
   }
 })
   
+let chart: Chart | undefined;
+onBeforeUnmount(() => chart?.destroy());
+
 function renderChart() {
+  chart?.destroy();
   const continentCounts: Record<string, number> = {}
   
   store.countries.forEach(c => {
@@ -97,7 +101,7 @@ function renderChart() {
   }
   
   if (continentChartRef.value) {
-    new Chart(continentChartRef.value, {
+    chart = new Chart(continentChartRef.value, {
       type: 'pie',
       data,
       options,

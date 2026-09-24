@@ -85,7 +85,7 @@ const sortCountries = (list: Array<Record<string, any>>) => {
 const getSortValue = (obj: any, key: string): string | number | undefined => {
   switch (key) {
     case 'name':
-      return obj.name?.common
+      return obj.translations?.fra?.common || obj.name?.common
     case 'capital':
       return obj.capital?.[0]
     case 'population':

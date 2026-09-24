@@ -16,8 +16,8 @@
     >
       <li
         v-for="country in suggestions"
-        :key="country.cca3"
-        @click="goToCountry(country.cca3)"
+        :key="country.id"
+        @click="goToCountry(country.id)"
         class="px-3 py-2 hover:bg-gray-700 cursor-pointer"
       >
         {{ country.name.common }}
@@ -53,14 +53,13 @@ const onSearch = () => {
   }
   
   suggestions.value = store.countries.filter((c) =>
-    c.name.common.toLowerCase().includes(query)
+    [c.name.common, c.translations.fra.common].some(name => name.toLowerCase().includes(query))
   ).slice(0, 5)
 }
   
 import { nextTick } from 'vue';
 
 const goToCountry = (code: string) => {
-  console.log("Clicked on country:", code);
   nextTick(() => {
     router.push(`/country/${code}`);
   });
