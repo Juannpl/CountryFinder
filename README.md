@@ -230,3 +230,13 @@ Les fiches sont chargées côté client et ne sont pas préchargées pour le ré
 **Country Finder** · Un regard sur le monde à travers ses données.
 
 </div>
+
+### Dossiers de génération Nuxt
+
+Le développement utilise `.nuxt` et les compilations de production utilisent
+`.nuxt-production` via `$production.buildDir`. Cela évite qu'un `npm run build`
+écrase les fichiers du serveur `npm run dev` actif et provoque l'erreur
+`Package import specifier "#internal/nuxt/paths" is not defined`.
+Vérification : compilation de production réussie avec le serveur de développement
+actif, puis rechargement de `http://localhost:3000` et affichage des quatre graphiques
+sans erreur JavaScript non interceptée.

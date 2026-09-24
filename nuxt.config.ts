@@ -2,6 +2,8 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
+  // Keep production builds from overwriting a running dev server.
+  $production: { buildDir: ".nuxt-production" },
   runtimeConfig: { restCountriesApiKey: "" },
   app: {
     head: {
